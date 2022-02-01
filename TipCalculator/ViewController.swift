@@ -68,15 +68,24 @@ class ViewController: UIViewController {
     }
     
     func calculateCosts() {
-        foodCosts  = Double(AmountTextField.text!)!
-        tipPercent = Double(PercentSlider.value)
+        // alert check before calculating
         
-        tipSum = (foodCosts * tipPercent) / 100
-        totalCosts = foodCosts + tipSum
-        
-        costsPerPerson = totalCosts / Double(AmountOfPerson.text!)!
-        
-        printUIElements()
+        if (AmountTextField.text!.isEmpty)  || (AmountOfPerson.text!.isEmpty) {
+            createAlert(message: "Please provide the necessary information!")
+        } else {
+            foodCosts  = Double(AmountTextField.text!)!
+            tipPercent = Double(PercentSlider.value)
+            
+            tipSum = (foodCosts * tipPercent) / 100
+            totalCosts = foodCosts + tipSum
+            
+            costsPerPerson = totalCosts / Double(AmountOfPerson.text!)!
+            
+            printUIElements()
+            
+        }
+            
+       
     }
     
     // render calculated costs on iphone
@@ -89,6 +98,17 @@ class ViewController: UIViewController {
         TipLabel.text = "Tip: " + stringTip + "€"
         TotalCostsLabel.text = "Total Costs: " + stringTotalCost + "€"
         CostsPerPerson.text = "Costs Per person: " +  stringCostsPerson + "€"
+    }
+    
+    
+    // create alert, otherwise app will crash if slider is activated without text input
+    func createAlert(message: String) {
+        let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
+        
+        let action1 = UIAlertAction(title: "OK", style: .default) { (action) in }
+        alert.addAction(action1)
+        
+        self.present(alert, animated: true, completion: nil)
     }
 
 }
