@@ -32,6 +32,10 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
+    // remove keyboard if user finished typing numbers
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        view.endEditing(true)
+    }
     
     // add funtionality to percent btns
     
